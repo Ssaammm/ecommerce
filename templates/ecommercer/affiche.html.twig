@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+
+</br>
+<h3>Titre: {{ article.title }} n°{{ article.id }}</h3> </br></br>
+<div class="row">
+    <div class="col-6">
+        <img src="https://img-19.commentcamarche.net/WNCe54PoGxObY8PCXUxMGQ0Gwss=/480x270/smart/d8c10e7fd21a485c909a5b4c5d99e611/ccmcms-commentcamarche/20456790.jpg" alt="">
+    </div>
+    <div class="col">
+        <p>Description: {{ article.content | raw}}</p> </br>
+    </div>
+    
+        <p>Categorie: {{ article.category.title}} </p>
+    
+    
+        <p>Créer le: {{ article.date | date("m/d/Y")}}</p>
+    </div>
+        {% if article.category.id == 4 %}
+            <a href="{{ path('cat1') }}" class="btn btn-success">Retour</a>
+        {% elseif article.category.id == 5 %}
+            <a href="{{ path('cat2') }}" class="btn btn-success">Retour</a>
+        {% elseif article.category.id == 6 %}
+            <a href="{{ path('cat3') }}" class="btn btn-success">Retour</a>
+        {% endif %}
+    </div> 
+</div>
+
+{% endblock %}

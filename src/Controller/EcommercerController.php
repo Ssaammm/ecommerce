@@ -73,7 +73,7 @@ class EcommercerController extends AbstractController
     }
 
     /**
-     * @Route("/ecommerce/cat3/{id}", name="show")
+     * @Route("/ecommerce/cat/{id}", name="show")
      */
     public function affiche($id): Response
     {
@@ -82,6 +82,7 @@ class EcommercerController extends AbstractController
 
         return $this->render('ecommercer/affiche.html.twig', [
             'article' => $article
+       
         ]);
     }
 
