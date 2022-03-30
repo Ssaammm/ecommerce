@@ -38,7 +38,7 @@ class Article
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity=category::class, inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;

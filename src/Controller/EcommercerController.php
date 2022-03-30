@@ -18,7 +18,7 @@ class EcommercerController extends AbstractController
         $articles = $repo->findAll();
 
         return $this->render('ecommercer/index.html.twig', [
-            'articles' => $articles,
+            'articles' => $articles
         ]);
     }
 }

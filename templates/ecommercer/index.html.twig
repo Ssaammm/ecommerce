@@ -11,14 +11,15 @@
 
 <h1>Tema les Articles !!! </h1>
 
-{% for arcticle in articles %}
+{% for article in articles %}
 
-<h3>Titre: {{ article.title }}</h3>
-<div>{{ article.image}}</div>
-<p>Description: {{ article.content }}</p>
-<p>Categorie: {{article.category_id.title}}</p>
-<p>Créer le: {{ article.date | date("m/d/Y")}}</p>
+    <h3>Titre: {{ article.title }}</h3>
+    <img src="{{ article.image }}" alt="">
+    <p>Description: {{ article.content | raw}}</p>
+    <p>Categorie: {{ article.category.title}} </p>
+    <p>Créer le: {{ article.date | date("m/d/Y")}}</p>
 
 
 {% endfor %}
+
 {% endblock %}
