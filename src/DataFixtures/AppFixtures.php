@@ -28,7 +28,7 @@ class AppFixtures extends Fixture
 
                 $article->setTitle($faker->sentence())
                         ->setContent($content)
-                        ->setImage($faker->imageUrl($width = 640, $height = 480))
+                        ->setImage($faker->imageUrl())
                         ->setDate($faker->dateTimeBetween('-6 months'))
                         ->setCategory($category);
 
