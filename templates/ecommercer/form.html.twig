@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+
+<br><h1>Créer un Article !</h1><br>
+
+
+
+    {{ form_start (form)}}
+
+        {{ form_label(form.title) }}
+        {{ form_widget(form.title) }}
+   
+        {{ form_label(form.content) }}
+        {{ form_widget(form.content) }}
+
+        {{ form_label(form.image) }}
+        {{ form_widget(form.image) }}
+              
+
+        {{ form_rest(form) }}
+        <br><button class= 'btn btn-success' type="submit">
+            {% if editMode %}
+                Modifier Article
+            {% else %}
+                Créer Article
+            {% endif %}     
+            </button>
+
+    {{ form_end (form)}}
+
+{% endblock %}

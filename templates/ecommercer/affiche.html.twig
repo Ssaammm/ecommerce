@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 
-
 {% block body %}
 
 </br>
@@ -26,6 +25,9 @@
         {% elseif article.category.id == 6 %}
             <a href="{{ path('cat3') }}" class="btn btn-success">Retour</a>
         {% endif %}
+
+        <a href="{{ path('form_edit', {'id' : article.id} ) }}" class="btn btn-success">Modifier</a>
+        <a href="{{ path('article_delete', {'id' : article.id} ) }}" class="btn btn-success">Supprimer</a>
     </div> 
 </div>
 

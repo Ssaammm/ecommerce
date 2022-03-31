@@ -4,9 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Form\ArticleType;
+use App\Repository\ArticleRepository;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class EcommercerController extends AbstractController
 {
@@ -86,4 +90,49 @@ class EcommercerController extends AbstractController
         ]);
     }
 
- }
+
+    /**
+     * @Route("/ecommerce/new", name="form_new")
+     * @Route("/ecommerce/{id}/edit", name="form_edit")
+     */
+    public function form(Article $article=null, Request $request, ObjectManager $manager) : Response
+    {   
+        if(!$article){
+            $article = new Article();
+        }
+
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()){
+            if(!$article->getId()){
+                $article->setDate(new \DateTime());
+            }
+
+            $manager->persist($article);
+            $manager->flush();
+
+            return $this->redirectToRoute('show', ['id' => $article->getId()]);
+            
+        }
+
+        return $this->render('ecommercer/form.html.twig', [
+            'form' => $form->createView(),
+            'editMode' => $article->getId() !== null
+        ]);   
+
+    }
+    
+     /**
+     * @Route("/ecommerce/{id}/delete", name="article_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Article $article, ArticleRepository $stagiaireRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+            $stagiaireRepository->remove($article);
+        }
+
+        return $this->redirectToRoute('ecommerce/cat1/html.twig', [], Response::HTTP_SEE_OTHER);
+    }
+
+}
