@@ -124,15 +124,15 @@ class EcommercerController extends AbstractController
     }
     
      /**
-     * @Route("/ecommerce/{id}/delete", name="article_delete", methods={"DELETE"})
+     * @Route("/ecommerce/{id}/delete", name="article_delete", methods={"POST"})
      */
-    public function delete(Request $request, Article $article, ArticleRepository $stagiaireRepository): Response
+    public function delete(Request $request, Article $article, ArticleRepository $articleRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
-            $stagiaireRepository->remove($article);
+            $articleRepository->remove($article);
         }
 
-        return $this->redirectToRoute('ecommerce/cat1/html.twig', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('cat1', [], Response::HTTP_SEE_OTHER);
     }
 
 }

@@ -16,7 +16,7 @@
         <p>Categorie: {{ article.category.title}} </p>
     
     
-        <p>Créer le: {{ article.date | date("m/d/Y")}}</p>
+        <p>Créer le: {{ article.date | date("d/m/Y")}}</p>
     </div>
         {% if article.category.id == 4 %}
             <a href="{{ path('cat1') }}" class="btn btn-success">Retour</a>
@@ -27,7 +27,12 @@
         {% endif %}
 
         <a href="{{ path('form_edit', {'id' : article.id} ) }}" class="btn btn-success">Modifier</a>
-        <a href="{{ path('article_delete', {'id' : article.id} ) }}" class="btn btn-success">Supprimer</a>
+
+        <form method="post" action="{{ path('article_delete', {'id': article.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+            <button class="btn btn-success">Delete</button>
+        </form>
+
     </div> 
 </div>
 
