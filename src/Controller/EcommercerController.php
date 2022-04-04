@@ -135,4 +135,6 @@ class EcommercerController extends AbstractController
         return $this->redirectToRoute('cat1', [], Response::HTTP_SEE_OTHER);
     }
 
+ 
+
 }
