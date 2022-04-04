@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+;
 
 class SecurityController extends AbstractController
 {
@@ -44,7 +45,7 @@ class SecurityController extends AbstractController
 
 
     /**
-    * @Route("/connexion", name="connexion")
+    * @Route("/inscription", name="inscription")
     */
     public function createUser(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $password): Response {
 
@@ -55,8 +56,8 @@ class SecurityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            $password = $password->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
+            // $password = $password->encodePassword($user, $user->getPassword());
+            // $user->setPassword($password);
 
             $manager->persist($user);
             $manager->flush();
