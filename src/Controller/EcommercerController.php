@@ -97,6 +97,8 @@ class EcommercerController extends AbstractController
      */
     public function form(Article $article=null, Request $request, ObjectManager $manager) : Response
     {   
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         if(!$article){
             $article = new Article();
         }
@@ -128,6 +130,8 @@ class EcommercerController extends AbstractController
      */
     public function delete(Request $request, Article $article, ArticleRepository $articleRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN');
+           
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
             $articleRepository->remove($article);
         }

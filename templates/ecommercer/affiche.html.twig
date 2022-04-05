@@ -30,17 +30,18 @@
             {% endif %}
     </div>
 
-
+    
     <div class="col-1">
             <a href="{{ path('form_edit', {'id' : article.id} ) }}" class="btn btn-success">Modifier</a>
     </div>
-
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
     <div class="col">
             <form method="post" action="{{ path('article_delete', {'id': article.id}) }}" onsubmit="return confirm('Veux-tu vraiment supprimer cet article ?');">
                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
                 <button class="btn btn-success">Delete</button>
             </form>
     </div>
+    {% endif %}
 </div>
 
 

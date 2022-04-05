@@ -2,6 +2,8 @@
 
 {% block body %}
 
+<br><h1  style="text-align: center">INSCRIPTION !!</h1><br>
+
 {{ form_start (form)}}
 
   
@@ -15,11 +17,11 @@
 
   {{ form_row (form.dateNaiss, {'label':'date de naissance'} ) }}
 
-  {# {{ form_row (form.roles, {'label':'roles'}) }} #}
+  {{ form_row (form.roles, {'label':'roles'}) }}
 
 
   {{ form_rest(form) }}
-  <button class= 'btn btn-success' type="submit">aaa</button>
+  <br><button class= 'btn btn-success' type="submit">Enregistrer</button>
 {{ form_end (form)}}
 
 {% endblock %}

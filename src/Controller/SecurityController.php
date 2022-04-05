@@ -41,6 +41,7 @@ class SecurityController extends AbstractController
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+
     }
 
 
@@ -49,6 +50,8 @@ class SecurityController extends AbstractController
     */
     public function createUser(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $password): Response {
 
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN');
+        
         $user = new User();
 
         $form = $this->createForm(ConnexionType::class, $user);
@@ -56,8 +59,8 @@ class SecurityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            // $password = $password->encodePassword($user, $user->getPassword());
-            // $user->setPassword($password);
+            $password = $password->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
 
             $manager->persist($user);
             $manager->flush();
@@ -68,10 +71,25 @@ class SecurityController extends AbstractController
             'form' => $form->createView(),
             
         ]);       
-    
+        
+       
     }
 
 
+    /**
+     *@Route("/readuser", name="read_user")
+     */
+    public function readUser(){
+
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        
+        $users = $repo->findAll();
+
+        return $this->render('security/readuser.html.twig', [
+            'users' => $users,
+        ]);
+
+    }
 
 
 }
