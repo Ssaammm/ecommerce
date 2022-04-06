@@ -5,11 +5,12 @@ namespace App\Controller;
 use App\Entity\User;
 use App\form\UserType;
 use App\Form\ConnexionType;
+use App\Repository\UserRepository;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -81,6 +82,8 @@ class SecurityController extends AbstractController
      */
     public function readUser(){
 
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN');
+
         $repo = $this->getDoctrine()->getRepository(User::class);
         
         $users = $repo->findAll();
@@ -89,6 +92,21 @@ class SecurityController extends AbstractController
             'users' => $users,
         ]);
 
+    }
+
+    /**
+    * @Route("/readuser/{id}/delete", name="user_delete", methods={"POST"})
+    */
+    public function deleteuser(Request $request, User $user, UserRepository $userRepository): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN');
+           
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            $userRepository->remove($user);
+        }
+
+        return $this->redirectToRoute('read_user');
+        
     }
 
 

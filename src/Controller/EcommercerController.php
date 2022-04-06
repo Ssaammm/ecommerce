@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 class EcommercerController extends AbstractController
 {
     /**
-     * @Route("/ecommerce", name="app_ecommerce")
+     * @Route("/", name="app_ecommerce")
      */
     public function index(): Response
     {
